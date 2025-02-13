@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='relative top-20'>page</div>
+    <div>page</div>
   )
 }
 
