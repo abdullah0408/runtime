@@ -3,7 +3,6 @@
 import * as Clerk from "@clerk/elements/common";
 import * as SignUp from "@clerk/elements/sign-up";
 import Link from "next/link";
-import { Signature } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
