@@ -11,9 +11,12 @@
   "dependencies": {
     "@clerk/elements": "^0.22.22",
     "@clerk/nextjs": "^6.11.3",
+    "@codesandbox/sandpack-react": "^2.20.0",
+    "@google/generative-ai": "^0.21.0",
     "@prisma/client": "^6.3.1",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
+    "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dedent": "^1.5.3",

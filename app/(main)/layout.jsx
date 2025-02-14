@@ -1,15 +1,13 @@
-import React from 'react'
+import React from "react";
 import Navbar from "@/components/Navbar";
 
 const layout = ({ children }) => {
   return (
     <div>
-        <Navbar />
-        <div className='relative top-20'>
-          {children}
-        </div>
+      <Navbar />
+      {children}
     </div>
-  )
-}
+  );
+};
 
-export default layout
+export default layout;
