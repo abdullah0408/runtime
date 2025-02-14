@@ -12,7 +12,7 @@ export default {
 
   DEFAULT_FILE: {
     '/public/index.html': {
-      code: `<!DOCTYPE html>
+code: `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -27,13 +27,13 @@ export default {
     },
     '/App.css': {
       code: `
-            @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;`
     },
     '/tailwind.config.js': {
       code: `
-            /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
