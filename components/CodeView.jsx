@@ -42,9 +42,13 @@ const CodeView = () => {
     if (messages.length === 0 || isFetching) return;
 
     setIsFetching(true);
-    
-    const prompt = JSON.stringify(messages) + " " + Prompt.CODE_GEN_PROMPT +
-      " and don't use src folder." + " Use only these dependencies not any other then these : " +
+
+    const prompt =
+      JSON.stringify(messages) +
+      " " +
+      Prompt.CODE_GEN_PROMPT +
+      " and don't use src folder." +
+      " Use only these dependencies not any other then these : " +
       JSON.stringify({
         "postcss": "^8",
         "tailwindcss": "^3.4.1",
@@ -53,8 +57,6 @@ const CodeView = () => {
         "tailwindcss-animate": "^1.0.7",
         "lucide-react": "^0.469.0",
         "react-router-dom": "^7.1.1",
-        "firebase": "^11.1.0",
-        "@google/generative-ai": "^0.21.0",
         "date-fns": "^4.1.0",
         "react-chartjs-2": "^5.3.0",
         "chart.js": "^4.4.7",
@@ -76,7 +78,7 @@ const CodeView = () => {
   useEffect(() => {
     if (messages.length === 0) return;
     const lastMessage = messages[messages.length - 1];
-    if (lastMessage.role === "user" && !isFetching) {
+    if (lastMessage?.role === "user" && !isFetching) {
       generateAICode();
     }
   }, [messages]);
@@ -88,7 +90,8 @@ const CodeView = () => {
           <h2
             onClick={() => setActiveTab("code")}
             className={`text-sm cursor-pointer ${
-              activeTab === "code" && "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"
+              activeTab === "code" &&
+              "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"
             }`}
           >
             Code
@@ -96,7 +99,8 @@ const CodeView = () => {
           <h2
             onClick={() => setActiveTab("preview")}
             className={`text-sm cursor-pointer ${
-              activeTab === "preview" && "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"
+              activeTab === "preview" &&
+              "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"
             }`}
           >
             Preview
@@ -118,7 +122,10 @@ const CodeView = () => {
               <SandpackCodeEditor style={{ height: "73.1vh" }} />
             </>
           ) : (
-            <SandpackPreview style={{ height: "73.1vh" }} showNavigator={true} />
+            <SandpackPreview
+              style={{ height: "73.1vh" }}
+              showNavigator={true}
+            />
           )}
         </SandpackLayout>
       </SandpackProvider>

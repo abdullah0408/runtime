@@ -1,10 +1,10 @@
-"use client"
-import Lookup from '@/data/Lookup'
-import React, { useState, useContext } from 'react'
+"use client";
+import Lookup from "@/data/Lookup";
+import React, { useState, useContext } from "react";
 import { MessagesContext } from "@/context/MessagesContext";
 import { ArrowRight, Link } from "lucide-react";
 import { useRouter } from "next/navigation";
-import createWorkspace from '@/queries/createWorkspace';
+import createWorkspace from "@/queries/createWorkspace";
 
 const Hero = () => {
   const [input, setInput] = useState("");
@@ -13,21 +13,18 @@ const Hero = () => {
 
   const onGenerate = async (input) => {
     setMessages({
-      role: 'user',
-      content: input
-    })
-    const workspace = await createWorkspace([{role: 'user', content: input}]);
+      role: "user",
+      content: input,
+    });
+    const workspace = await createWorkspace([{ role: "user", content: input }]);
     console.log(workspace);
     router.push(`/workspace/${workspace.id}`);
-  }
+  };
 
   return (
     <div className="flex flex-col mt-28 items-center justify-center gap-6 text-center px-4">
-      {/* Hero Heading */}
       <h2 className="font-bold text-5xl text-white">{Lookup.HERO_HEADING}</h2>
       <p className="text-gray-400 font-medium max-w-2xl">{Lookup.HERO_DESC}</p>
-
-      {/* Input Section */}
       <div className="p-4 border border-gray-700 rounded-2xl max-w-2xl w-full shadow-lg bg-gray-800">
         <div className="flex gap-2 items-start">
           <textarea
@@ -46,8 +43,6 @@ const Hero = () => {
           <Link className="text-blue-400 hover:text-blue-300 transition-all" />
         </div>
       </div>
-
-      {/* Suggestions */}
       <div className="flex flex-wrap max-w-2xl items-center justify-center gap-3">
         {Lookup.SUGGSTIONS.map((sugg) => (
           <h2
@@ -60,7 +55,7 @@ const Hero = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Hero;

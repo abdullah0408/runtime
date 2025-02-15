@@ -9,12 +9,17 @@ import updateWorkspace from "@/queries/updateWorkspace";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import { MessagesContext } from "@/context/MessagesContext";
+import ReactMarkdown from "react-markdown";
 
 const ChatView = () => {
   const params = useParams();
   const workspaceId = params?.workspaceId;
   const { user } = useUser();
-  const { messages, setMessages } = useContext(MessagesContext);
+
+  const { messages = [], setMessages } = useContext(MessagesContext) || {
+    messages: [],
+    setMessages: () => {},
+  };
   const [input, setInput] = useState("");
   const [isFetching, setIsFetching] = useState(false);
 
@@ -24,7 +29,7 @@ const ChatView = () => {
     const fetchWorkspace = async () => {
       try {
         const data = await getWorkspace(workspaceId);
-        setMessages(data.messages || []);
+        setMessages(Array.isArray(data.messages) ? data.messages : []);
       } catch (error) {
         console.error("Failed to fetch workspace:", error);
       }
@@ -34,10 +39,11 @@ const ChatView = () => {
   }, [workspaceId, setMessages]);
 
   useEffect(() => {
-    if (messages.length === 0) return;
+    if (!messages.length) return;
+
     const lastMessage = messages[messages.length - 1];
 
-    if (lastMessage.role === "user" && !isFetching) {
+    if (lastMessage?.role === "user" && !isFetching) {
       getAiResponse();
     }
   }, [messages]);
@@ -50,7 +56,10 @@ const ChatView = () => {
 
     try {
       const result = await axios.post("/api/ai-chat", { prompt });
-      const newMessages = [...messages, { role: "ai", content: result.data.result }];
+      const newMessages = [
+        ...messages,
+        { role: "ai", content: result.data.result },
+      ];
       setMessages(newMessages);
       await updateWorkspace(workspaceId, newMessages);
     } catch (error) {
@@ -61,7 +70,7 @@ const ChatView = () => {
   };
 
   const onGenerate = async () => {
-    if (!input) return;
+    if (!input.trim()) return;
 
     const newMessages = [...messages, { role: "user", content: input }];
     setMessages(newMessages);
@@ -73,25 +82,32 @@ const ChatView = () => {
     <div className="flex flex-col h-[80vh] shadow-lg">
       <div className="flex-1 rounded-xl overflow-y-scroll">
         {messages.length === 0 && <div>Loading...</div>}
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`p-3 mb-2 rounded-lg flex gap-3 items-center ${
-              message.role === "user" ? "bg-gray-700 text-white" : "bg-gray-700"
-            }`}
-          >
-            {message.role === "user" ? (
-              <img src={user?.imageUrl} alt="User" className="w-8 h-8 rounded-full" />
-            ) : (
-              <div className="w-8 h-8 aspect-square rounded-full bg-gray-600 flex items-center justify-center">
-                <Bot size={20} className="text-gray-300" />
+        {Array.isArray(messages) &&
+          messages.map((message, index) => (
+            <div
+              key={index}
+              className={`p-3 mb-2 rounded-lg flex gap-3 items-center ${
+                message.role === "user"
+                  ? "bg-gray-700 text-white"
+                  : "bg-gray-700"
+              }`}
+            >
+              {message?.role === "user" ? (
+                <img
+                  src={user?.imageUrl}
+                  alt="User"
+                  className="w-8 h-8 rounded-full"
+                />
+              ) : (
+                <div className="w-8 h-8 aspect-square rounded-full bg-gray-600 flex items-center justify-center">
+                  <Bot size={20} className="text-gray-300" />
+                </div>
+              )}
+              <div>
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               </div>
-            )}
-            <div>
-              <p>{message.content}</p>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <div className="mt-4 p-4 border border-gray-700 rounded-xl bg-gray-800 shadow-lg">
         <div className="flex gap-2 items-center">
