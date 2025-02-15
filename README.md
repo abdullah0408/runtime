@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RunTime - AI-Powered React Application Generator 🚀
 
-## Getting Started
+![RunTime Demo](/Screenshot%202025-02-15%20at%209.28.30 AM.png)
 
-First, run the development server:
+## Overview
+RunTime is an innovative AI-powered platform that enables developers to generate and edit React applications through natural language prompts. Built with cutting-edge technologies, it combines AI code generation with a powerful online IDE experience.
 
+## Key Features ✨
+- **AI-Powered Code Generation** 💡
+  - Convert natural language prompts into functional React components
+  - Intelligent code suggestions with Google Gemini integration
+  - Real-time chat interface with AI assistant
+- **Integrated Development Environment** 🔧
+  - Sandpack-powered code editor with live preview
+  - File system navigation
+  - Tailwind CSS support out-of-the-box
+- **Workspace Management** 📂
+  - Cloud-synced workspaces
+- **Authentication & Security** 🔒
+  - Clerk-powered user authentication
+  - OAuth integration (GitHub, Google)
+  - Secure workspace isolation
+- **Smart UI Components** 🎨
+  - Responsive sidebar navigation
+
+## Technology Stack 🛠️
+**Frontend:**
+- Next.js 15 (App Router)
+- Tailwind CSS + Shadcn UI
+- Clerk Authentication
+- Sandpack Code Editor
+- Lucide React Icons
+
+**Backend:**
+- Next.js API Routes
+- Prisma ORM
+- PostgreSQL Database
+- Google Gemini AI
+
+**DevOps:**
+- Vercel Deployment
+- PostgreSQL (Neon PostgreSQL)
+- Environment Variables Encryption
+
+## Installation & Setup 🚀
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL database
+- Google Gemini API key
+- Clerk account
+
+### 1. Clone Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/abdullah0408/runtime.git
+cd runtime
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3. Environment Configuration
+Create `.env` file:
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/runtime?schema=public"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
+CLERK_SECRET_KEY=your_clerk_secret
+CLERK_USER_WEBHOOK_SIGNING_SECRET=your_clerk_webhook_signing_secret
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_GEMINI_API_KEY=your_google_ai_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Database Setup
+```bash
+npx prisma db push
+```
 
-## Learn More
+### 5. Start Development Server
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure 📁
+```
+runtime/
+├── app/
+│   ├── (auth)/                 # Authentication routes
+│   ├── api/                    # API endpoints
+│   ├── (main)/workspace/       # Main application UI
+│   └── layout.js               # Root layout
+├── components/                 # Reusable components
+├── context/                    # React contexts
+├── data/                       # Constants & prompts
+├── hook/                       # Custom React hooks
+├── lib/                        # Utility functions
+├── prisma/                     # Database schema
+└── queries/                    # Data operations
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage Guide 📖
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. Authentication
+- Sign up/in using email, GitHub, or Google
+- Protected routes require valid session
 
-## Deploy on Vercel
+### 2. Creating Workspace
+1. On homepage, describe your app idea:
+   > "Create a todo app with dark mode"
+2. AI generates initial codebase
+3. Automatically creates new workspace
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Code Interface
+- **Chat View**: Communicate with AI assistant
+- **Code Editor**: Modify generated code
+- **Preview Pane**: Real-time component rendering
+- **File Explorer**: Navigate project structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. AI Collaboration
+- Ask for feature implementations:
+    > "Create a responsive navigation bar"
+    > "Implement a dark mode toggle"
+    > "Add a user profile page"
+    > "Build a dashboard with charts and graphs"
+
+## API Endpoints 🔌
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/ai-chat` | POST | Process natural language prompts |
+| `/api/generate-ai-code` | POST | Generate React components from prompts |
+| `/api/webhooks/clerk` | POST | Handle Clerk authentication events |
+
+## Contributing 🤝
+1. Fork repository
+2. Create feature branch
+3. Submit PR with detailed description
+
+## Support 💬
+For issues/questions:
+- hello@abdullah.co.in
+
+---
+
+**Transform your ideas into production-ready React apps with AI-powered efficiency!** 🚀
