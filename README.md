@@ -79,6 +79,9 @@ NEXT_PUBLIC_GEMINI_API_KEY=your_google_ai_key
 ```bash
 npx prisma db push
 ```
+### Clerk Webhook Setup
+The Clerk webhook setup in the provided configuration will not work as expected on localhost. Please refer to the detailed guide on setting up Clerk webhooks correctly: [Extending Clerk Authentication: Storing Custom User Data and Syncing Across the Application].
+- https://blogs.abdullah.co.in/extending-clerk-authentication-storing-custom-user-data-and-syncing-across-the-application
 
 ### 5. Start Development Server
 ```bash
