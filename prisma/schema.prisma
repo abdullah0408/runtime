@@ -19,7 +19,7 @@ model User {
 
 model Workspace {
   id       String  @id @default(uuid())
-  messages Json
+  messages Json?
   fileData Json?
   userId   String
   user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)

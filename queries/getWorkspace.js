@@ -1,8 +1,13 @@
 "use server";
 
 import { prisma } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
 
 export const getWorkspace = async (workspaceId) => {
+
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+  
   if (!workspaceId) return null;
 
   try {
